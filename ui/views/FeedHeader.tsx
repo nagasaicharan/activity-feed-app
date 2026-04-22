@@ -1,11 +1,10 @@
 import React from 'react';
 import { Pressable, Text, View, ViewStyle } from 'react-native';
-import { ApolloError } from '@apollo/client';
 import tw from '../tw';
 
 interface FeedHeaderProps {
   firstName: string;
-  error?: ApolloError;
+  error?: Error;
   onRetry?: () => void;
   contentWidthStyle?: ViewStyle | null;
 }

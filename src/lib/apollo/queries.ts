@@ -22,8 +22,8 @@ export const ACTIVITY_COMMENT_FIELDS = gql`
   ${ACTIVITY_AUTHOR_FIELDS}
 `;
 
-export const ACTIVITY_FIELDS = gql`
-  fragment ActivityFields on activities {
+export const ACTIVITY_SUMMARY_FIELDS = gql`
+  fragment ActivitySummaryFields on activities {
     __typename
     id
     title
@@ -33,6 +33,13 @@ export const ACTIVITY_FIELDS = gql`
     author {
       ...ActivityAuthorFields
     }
+  }
+  ${ACTIVITY_AUTHOR_FIELDS}
+`;
+
+export const ACTIVITY_FULL_FIELDS = gql`
+  fragment ActivityFullFields on activities {
+    ...ActivitySummaryFields
     commentsCollection(first: 50) {
       edges {
         node {
@@ -41,7 +48,7 @@ export const ACTIVITY_FIELDS = gql`
       }
     }
   }
-  ${ACTIVITY_AUTHOR_FIELDS}
+  ${ACTIVITY_SUMMARY_FIELDS}
   ${ACTIVITY_COMMENT_FIELDS}
 `;
 
@@ -53,7 +60,7 @@ export const FEED_QUERY = gql`
         __typename
         cursor
         node {
-          ...ActivityFields
+          ...ActivitySummaryFields
           userBookmarks: bookmarksCollection(filter: { userId: { eq: $userId } }, first: 1) {
             edges {
               node {
@@ -70,7 +77,7 @@ export const FEED_QUERY = gql`
       }
     }
   }
-  ${ACTIVITY_FIELDS}
+  ${ACTIVITY_SUMMARY_FIELDS}
 `;
 
 export const ACTIVITY_QUERY = gql`
@@ -78,7 +85,7 @@ export const ACTIVITY_QUERY = gql`
     activitiesCollection(filter: { id: { eq: $id } }, first: 1) {
       edges {
         node {
-          ...ActivityFields
+          ...ActivityFullFields
           userBookmarks: bookmarksCollection(filter: { userId: { eq: $userId } }, first: 1) {
             edges {
               node {
@@ -90,7 +97,7 @@ export const ACTIVITY_QUERY = gql`
       }
     }
   }
-  ${ACTIVITY_FIELDS}
+  ${ACTIVITY_FULL_FIELDS}
 `;
 
 export const ACTIVITY_BOOKMARK_FRAGMENT = gql`
@@ -104,13 +111,6 @@ export const ACTIVITY_BOOKMARK_FRAGMENT = gql`
     author {
       ...ActivityAuthorFields
     }
-    commentsCollection(first: 50) {
-      edges {
-        node {
-          ...ActivityCommentFields
-        }
-      }
-    }
     userBookmarks: bookmarksCollection(first: 1) {
       edges {
         node {
@@ -120,5 +120,4 @@ export const ACTIVITY_BOOKMARK_FRAGMENT = gql`
     }
   }
   ${ACTIVITY_AUTHOR_FIELDS}
-  ${ACTIVITY_COMMENT_FIELDS}
 `;

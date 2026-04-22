@@ -1,13 +1,8 @@
-import React, { memo, useMemo, useState } from 'react';
-import {
-  LayoutAnimation,
-  Platform,
-  Pressable,
-  UIManager,
-} from 'react-native';
+import React, { memo } from 'react';
+import { Pressable } from 'react-native';
 import { BookmarkToggleButton } from './BookmarkToggleButton';
 import { ActivitySummary } from '../../../types/activity';
-import { formatTimestamp } from '../utils';
+import { formatTimestamp, truncateBody } from '../utils';
 import { Image, Text, tw, View } from '@ui';
 
 interface ActivityCardProps {
@@ -15,23 +10,7 @@ interface ActivityCardProps {
   onOpenActivity: (activityId: string) => void;
 }
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
-
 const ActivityCardComponent = ({ activity, onOpenActivity }: ActivityCardProps) => {
-  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-  const latestComments = useMemo(
-    () => [...activity.comments].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
-    [activity.comments],
-  );
-  const previewComments = useMemo(() => latestComments.slice(0, 1), [latestComments]);
-
-  const handleToggleComments = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setIsCommentsOpen((previous) => !previous);
-  };
-
   return (
     <View style={tw`mb-3 rounded-2xl bg-white px-4 pb-3 pt-3`}>
       <View style={tw`flex-row items-start justify-between`}>
@@ -49,7 +28,7 @@ const ActivityCardComponent = ({ activity, onOpenActivity }: ActivityCardProps) 
 
       <Pressable onPress={() => onOpenActivity(activity.id)} style={tw`mt-3`}>
         <Text style={tw`text-[15px] font-semibold leading-5 text-zinc-900`}>{activity.title}</Text>
-        <Text style={tw`mt-2 text-sm leading-5 text-zinc-700`}>{activity.body}</Text>
+        <Text style={tw`mt-2 text-sm leading-5 text-zinc-700`}>{truncateBody(activity.body)}</Text>
       </Pressable>
 
       <View style={tw`mt-3 h-[1px] bg-zinc-100`} />
@@ -58,12 +37,10 @@ const ActivityCardComponent = ({ activity, onOpenActivity }: ActivityCardProps) 
         <View style={tw`flex-row items-center`}>
           <Pressable
             accessibilityRole="button"
-            onPress={handleToggleComments}
+            onPress={() => onOpenActivity(activity.id)}
             style={tw`mr-4 flex-row items-center py-2`}
           >
-            <Text style={tw`ml-1 text-xs text-primary-800`}>
-              {activity.comments.length} comment{activity.comments.length === 1 ? '' : 's'}
-            </Text>
+            <Text style={tw`ml-1 text-xs font-semibold text-primary-800`}>View discussion</Text>
           </Pressable>
 
           <BookmarkToggleButton
@@ -75,28 +52,6 @@ const ActivityCardComponent = ({ activity, onOpenActivity }: ActivityCardProps) 
           />
         </View>
       </View>
-
-      {isCommentsOpen ? (
-        <View style={tw`mt-2 rounded-xl bg-zinc-50 px-3 py-2`}>
-          {previewComments.length === 0 ? (
-            <Text style={tw`text-xs text-zinc-500`}>No comments yet.</Text>
-          ) : (
-            previewComments.map((comment, index) => (
-              <View key={comment.id} style={[tw`mb-2`, index === previewComments.length - 1 ? tw`mb-0` : null]}>
-                <View style={tw`flex-row items-center`}>
-                  <Text style={tw`text-[13px] font-semibold text-zinc-900`}>{comment.author.name}</Text>
-                  <Text style={tw`ml-2 text-[12px] text-zinc-500`}>{formatTimestamp(comment.createdAt)}</Text>
-                </View>
-                <Text style={tw`mt-1 text-[13px] leading-5 text-zinc-700`}>{comment.text}</Text>
-              </View>
-            ))
-          )}
-
-          <Pressable onPress={() => onOpenActivity(activity.id)} style={tw`mt-1 py-1`}>
-            <Text style={tw`text-[13px] font-semibold text-primary-700`}>Open full discussion</Text>
-          </Pressable>
-        </View>
-      ) : null}
     </View>
   );
 };

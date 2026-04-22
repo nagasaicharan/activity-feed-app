@@ -25,6 +25,9 @@ interface BookmarkToggleButtonProps {
   isBookmarked?: boolean;
 }
 
+const BOOKMARK_FAILURE_MESSAGE = 'Could not update bookmark. Please try again.';
+const ASSESSMENT_FAILURE_RATE = 0.2;
+
 export const BookmarkToggleButton = ({
   activityId,
   bookmarkCount,
@@ -132,10 +135,12 @@ export const BookmarkToggleButton = ({
 
     inFlight.current = true;
 
-    // Simulate API instability: fail 20% of attempts for assessment behavior.
-    if (Math.random() < 0.2) {
+    // keep the assessment-only 20% failure path in code,
+    // but prefer mocking this offline with developer tools during demos/debugging
+    // rather than treating random client failures as product behavior.
+    if (Math.random() < ASSESSMENT_FAILURE_RATE) {
       rollbackOptimisticState();
-      notifyFailure('Could not update bookmark. Please try again.');
+      notifyFailure(BOOKMARK_FAILURE_MESSAGE);
       inFlight.current = false;
       return;
     }
@@ -193,17 +198,25 @@ export const BookmarkToggleButton = ({
       .then((result) => {
         if (result.error) {
           rollbackOptimisticState();
-          notifyFailure('Could not update bookmark. Please try again.');
+          notifyFailure(BOOKMARK_FAILURE_MESSAGE);
         }
       })
       .catch(() => {
         rollbackOptimisticState();
-        notifyFailure('Could not update bookmark. Please try again.');
+        notifyFailure(BOOKMARK_FAILURE_MESSAGE);
       })
       .finally(() => {
         inFlight.current = false;
       });
   };
+
+  const compactButtonPaddingClassName = compact ? 'px-2 py-1.5' : 'px-3 py-2';
+  const buttonContainerClassName = iconOnly
+    ? 'flex-row items-center justify-center rounded-full px-2.5 py-1.5'
+    : `${compactButtonPaddingClassName} rounded-full`;
+  const buttonBackgroundColor = iconOnly && displayedIsBookmarked
+    ? tw.color('primary-100')
+    : tw.color('zinc-100');
 
   return (
     <Pressable
@@ -211,15 +224,9 @@ export const BookmarkToggleButton = ({
       accessibilityLabel={iconOnly ? 'Toggle bookmark' : 'Save activity'}
       onPress={handlePress}
       style={[
-        tw`${iconOnly
-          ? 'flex-row items-center justify-center rounded-full px-2.5 py-1.5'
-          : `${compact ? 'px-2 py-1.5' : 'px-3 py-2'} rounded-full`}`,
+        tw`${buttonContainerClassName}`,
         {
-          backgroundColor: iconOnly
-            ? displayedIsBookmarked
-              ? tw.color('primary-100')
-              : tw.color('zinc-100')
-            : tw.color('zinc-100'),
+          backgroundColor: buttonBackgroundColor,
         },
       ]}
     >

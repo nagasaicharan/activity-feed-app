@@ -1,8 +1,6 @@
 # ADR Quality: Project Structure and Core Libraries
 
-- Status: Accepted
 - Date: 2026-04-22
-- Decision Owners: Frontend engineering
 - Scope: App architecture boundaries, data/state layers, and styling runtime
 
 ## Context
@@ -20,6 +18,8 @@ This ADR documents quality-oriented decisions that are already implemented in th
 - Keep styling consistent without a fragmented theme/runtime setup.
 
 ## Decision 1: Structure the app by runtime entry points + domain code + UI system
+
+Intent and decision ownership: Human-led architectural decision informed by Expo Router documentation and AI-assisted option exploration.
 
 ### Implemented structure
 
@@ -51,6 +51,8 @@ This ADR documents quality-oriented decisions that are already implemented in th
 - Requires discipline to avoid leaking business logic back into route files.
 
 ## Decision 2: Use Apollo Client for GraphQL data and normalized cache
+
+Intent and decision ownership: Human-selected GraphQL client after comparing alternatives, with AI used to accelerate package and trade-off research.
 
 ### What is implemented
 
@@ -88,7 +90,33 @@ This ADR documents quality-oriented decisions that are already implemented in th
 - Apollo adds runtime and conceptual overhead versus thinner clients.
 - Default query policies favor freshness, which can increase network usage.
 
+### Assignment-specific divergence
+
+The take-home prompt provided a simplified GraphQL contract centered on `feed`, `activity`, and `toggleBookmark`. This implementation intentionally uses Supabase's generated GraphQL API instead, which exposes collection-oriented queries and mutations such as `activitiesCollection`, `insertIntobookmarksCollection`, and `deleteFrombookmarksCollection`.
+
+Why this choice was made:
+
+- It allowed the app to run against a real hosted backend and real persistence instead of a local mock layer.
+- It reduced the amount of custom GraphQL resolver or mocking infrastructure required inside the Expo client.
+- It let the project focus time on pagination behavior, optimistic UI, cache updates, and cross-platform delivery.
+
+What this means for reviewers:
+
+- The app preserves the core product behavior requested by the assignment, but it does not consume the exact GraphQL schema provided in the prompt.
+- Bookmarking is implemented as separate add/remove Supabase mutations rather than a single `toggleBookmark` field.
+- `isBookmarked` is derived from user-specific bookmark query results rather than resolved as a first-class server field.
+- The bookmark toggle also keeps an assessment-only 20% failure branch in the client so error handling can be demonstrated, even though a cleaner assessment setup would mock that offline in developer tools.
+
+Trade-off accepted:
+
+- This is a deliberate deviation from the requested mock-schema approach.
+- This was a human decision to deviate for assessment storytelling: keep the failure path visible in code, but document that offline developer-tool mocking is the preferred way to simulate it.
+- The implementation is closer to a production-backed app, but weaker as a strict reading of the assignment contract.
+- Given more time, the cleaner submission would be a compatibility layer that maps the provided schema onto the same persistence model.
+
 ## Decision 3: Use Redux Toolkit for local app state
+
+Intent and decision ownership: Human-led state-boundary decision, with AI used to pressure-test simpler alternatives before settling on Toolkit.
 
 ### What is implemented
 
@@ -123,6 +151,8 @@ This ADR documents quality-oriented decisions that are already implemented in th
 - Requires care to prevent duplication between Redux state and Apollo cache state.
 
 ## Decision 4: Use twrnc with a shared Tailwind config for styling
+
+Intent and decision ownership: Human-selected styling direction for team velocity and consistency, with AI used for implementation references and comparison notes.
 
 ### What is implemented
 
@@ -168,6 +198,24 @@ These decisions produce a clear separation of responsibilities:
 
 This structure keeps the app easier to reason about while supporting iterative feature growth.
 
+## Feed and Detail Data Shaping
+
+The feed and detail screens now use intentionally different GraphQL payload shapes.
+
+- Feed queries request summary data only: title, preview body text source, author, timestamp, bookmark state, and bookmark count.
+- Detail queries request the full body plus comment data.
+
+Why this matters:
+
+- The paginated feed no longer pulls comment collections for every card.
+- The feed UI presents activity previews while preserving the detail screen as the source of truth for full content and discussion.
+- The resulting data flow better matches the product surface area of each screen.
+
+Trade-off:
+
+- The feed no longer tries to preview comment threads inline.
+- Users move into the detail view to read the full discussion, which keeps the list cheaper and simpler.
+
 ## Architecture Guardrails
 
 - Keep routing concerns in `app/`; avoid putting network/cache logic directly in route files.
@@ -194,6 +242,35 @@ Re-evaluate this ADR when one of the following occurs:
 - Local state grows beyond current Redux slice boundaries.
 - Styling inconsistency rises despite shared `twrnc` configuration.
 
-## Notes
+## AI Usage
 
-All statements in this ADR were verified against current source files and dependency declarations as of 2026-04-22.
+AI tools were used during this project for targeted implementation support rather than end-to-end generation.
+
+### Where AI helped
+
+- Scaffolding and refining UI component structure.
+- Reviewing Apollo Client v4 migration details and type-surface mismatches.
+- Stress-testing GraphQL pagination and optimistic-update approaches.
+- Drafting documentation language for architectural trade-offs.
+
+### Where human judgment overrode AI output
+
+- Rejecting suggestions that would have added unnecessary abstraction for a small codebase.
+- Correcting Apollo-specific recommendations that assumed removed v3 APIs such as `ApolloError` exports.
+- Choosing to keep the real Supabase backend and documenting that deviation explicitly instead of pretending it matched the provided mock-schema contract.
+- Simplifying the feed surface so preview behavior matched the screen's purpose rather than overloading the list with detail-only discussion data.
+
+### Validation applied to AI-assisted changes
+
+- TypeScript typechecking after code edits.
+- Jest test execution after behavior changes.
+- Manual review of architectural trade-offs before accepting generated suggestions.
+
+## What I Would Do Differently With More Time
+
+- Add a compatibility layer that exposes the exact `feed`, `activity`, and `toggleBookmark` schema described in the assignment while keeping the same persistence model underneath.
+- Add a self-contained mock runtime so reviewers can run the app without external backend provisioning.
+- Add focused tests for optimistic bookmark success and rollback behavior.
+- Improve the bookmark mutation shape so failure handling happens at the API boundary rather than being simulated in the UI layer.
+- Expand accessibility coverage with stronger screen-reader labels, keyboard support on web, and clearer reduced-motion considerations.
+- Tighten README setup guidance with a short reviewer path for web and native verification.

@@ -8,19 +8,6 @@ import { useAppSelector } from './useRedux';
 const PAGE_SIZE = 5;
 
 const mapActivity = (activity: GqlActivity): ActivitySummary => {
-  const comments = (activity.commentsCollection?.edges ?? []).map((edge) => ({
-    __typename: 'Comment' as const,
-    id: edge.node.id,
-    text: edge.node.text ?? '',
-    createdAt: edge.node.createdAt,
-    author: {
-      __typename: 'Author' as const,
-      id: edge.node.author?.id ?? '',
-      name: edge.node.author?.name ?? 'Unknown',
-      avatarUrl: edge.node.author?.avatarUrl ?? '',
-    },
-  }));
-
   return {
     __typename: 'Activity',
     id: activity.id,
@@ -35,7 +22,6 @@ const mapActivity = (activity: GqlActivity): ActivitySummary => {
       name: activity.author?.name ?? 'Unknown',
       avatarUrl: activity.author?.avatarUrl ?? '',
     },
-    comments,
   };
 };
 

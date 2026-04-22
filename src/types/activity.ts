@@ -13,19 +13,22 @@ export interface ActivityComment {
   createdAt: string;
 }
 
-export interface ActivitySummary {
+interface ActivityBase {
   __typename: 'Activity';
   id: string;
   title: string;
   body: string;
   author: ActivityAuthor;
-  comments: ActivityComment[];
   bookmarkCount: number;
   isBookmarked: boolean;
   createdAt: string;
 }
 
-export interface ActivityDetail extends ActivitySummary {}
+export interface ActivitySummary extends ActivityBase {}
+
+export interface ActivityDetail extends ActivityBase {
+  comments: ActivityComment[];
+}
 
 export interface FeedEdge {
   __typename: 'FeedEdge';

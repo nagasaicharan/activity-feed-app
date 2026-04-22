@@ -26,6 +26,10 @@ This app uses Expo Router, Apollo Client, and Redux Toolkit to deliver an activi
 |---|---|---|
 | ![Web Welcome](./screenshot/web-welcome.png) | ![Web Feed](./screenshot/web-feed.png) | ![Web Activity Detail](./screenshot/web-details.png) |
 
+### Bookmark Error
+
+![Bookmark Error](./screenshot/bookmark_error.png)
+
 ## Tech Stack
 
 - Expo SDK 54
