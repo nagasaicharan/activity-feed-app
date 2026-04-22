@@ -11,6 +11,13 @@ interface FixedActionButtonProps {
     loading?: boolean;
 }
 
+const BUTTON_TOUCH_STYLE = {
+    minHeight: 52,
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    marginVertical: 12,
+};
+
 /**
  * FixedActionButton Component
  * A fixed-position button at the bottom of the screen with safe area support
@@ -44,7 +51,7 @@ export const FixedActionButton: React.FC<FixedActionButtonProps> = ({
                     tw`flex-row items-center justify-center rounded-xl shadow-lg`,
                     tw`${disabled || loading ? 'bg-gray-400' : 'bg-primary'}`,
                     // Ensure minimum 44pt touch target height
-                    { minHeight: 52, paddingVertical: 14, paddingHorizontal: 24, marginVertical: 12 },
+                    BUTTON_TOUCH_STYLE,
                 ]}
             >
                 {loading ? (

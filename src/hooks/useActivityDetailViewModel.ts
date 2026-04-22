@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { useMutation, useQuery } from '@apollo/client/react';
 import { ACTIVITY_QUERY } from '../lib/apollo/queries';
 import { ADD_COMMENT_MUTATION } from '../lib/apollo/mutations';
-import { ActivityComment, ActivityDetail } from '../types/activity';
+import { ActivityDetail } from '../types/activity';
 import {
   ActivityQueryData,
   ActivityQueryVariables,

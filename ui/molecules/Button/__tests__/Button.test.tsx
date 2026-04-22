@@ -2,7 +2,6 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { Primary as PrimaryButton } from '../Primary';
 import { Secondary as SecondaryButton } from '../Secondary';
-import { Text } from 'react-native';
 
 describe('Buttons', () => {
     describe('PrimaryButton', () => {

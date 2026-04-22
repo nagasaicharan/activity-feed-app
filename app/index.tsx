@@ -32,10 +32,7 @@ export default function LoginScreen() {
                 onPress={() => dispatch(loginAsUser(user.id))}
                 style={[
                   tw`mb-3 flex-row items-center rounded-2xl border px-4 py-3`,
-                  {
-                    borderColor: isSelected ? tw.color('bg-primary-900') : '#e4e4e7',
-                    backgroundColor: isSelected ? tw.color('bg-primary-50') : '#ffffff',
-                  },
+                  isSelected ? tw`border-primary-900 bg-primary-50` : tw`border-zinc-200 bg-white`,
                 ]}
               >
                 <Image

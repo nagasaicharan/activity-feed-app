@@ -2,6 +2,14 @@ import React from 'react';
 import { Tabs } from 'expo-router';
 import { Home, UserCircle2 } from 'lucide-react-native';
 
+const FeedTabIcon = ({ color, size }: { color: string; size: number }) => (
+  <Home color={color} size={size} strokeWidth={2.2} />
+);
+
+const ProfileTabIcon = ({ color, size }: { color: string; size: number }) => (
+  <UserCircle2 color={color} size={size} strokeWidth={2.1} />
+);
+
 export default function TabsLayout() {
   return (
     <Tabs
@@ -25,14 +33,14 @@ export default function TabsLayout() {
         name="feed"
         options={{
           title: 'Feed',
-          tabBarIcon: ({ color, size }) => <Home color={color} size={size} strokeWidth={2.2} />,
+          tabBarIcon: FeedTabIcon,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color, size }) => <UserCircle2 color={color} size={size} strokeWidth={2.1} />,
+          tabBarIcon: ProfileTabIcon,
         }}
       />
     </Tabs>

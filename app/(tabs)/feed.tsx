@@ -20,7 +20,6 @@ export default function FeedScreen() {
   const router = useRouter();
   const {
     edges,
-    pageInfo,
     loading,
     error,
     isFetchingMore,

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Platform, Pressable, ScrollView } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAppDispatch, useAppSelector } from '../../src/hooks/useRedux';
 import { loginAsUser } from '../../src/store/slices/userSlice';

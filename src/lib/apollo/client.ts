@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, HttpLink } from '@apollo/client';
+import { ApolloClient, HttpLink } from '@apollo/client';
 import { apolloCache } from './cache';
 
 const supabaseGraphqlUrl = process.env.EXPO_PUBLIC_SUPABASE_GRAPHQL_URL;

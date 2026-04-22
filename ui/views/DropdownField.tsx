@@ -67,7 +67,7 @@ export const DropdownField = ({ name, label, options, placeholder = 'Select an o
                                 style={tw`flex-1 bg-black/50 justify-center items-center p-4`}
                                 onPress={() => setModalVisible(false)}
                             >
-                                <View style={[tw`bg-white rounded-xl w-full max-h-1/2`, { maxHeight: '50%' }]}>
+                                <View style={tw`bg-white rounded-xl w-full max-h-1/2`}>
                                     <FlatList
                                         data={options}
                                         keyExtractor={(item) => String(item.value)}

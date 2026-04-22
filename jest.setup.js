@@ -1,3 +1,5 @@
+/* eslint-env jest */
+
 // Mock twrnc
 jest.mock('twrnc', () => ({
   create: jest.fn(() => {
