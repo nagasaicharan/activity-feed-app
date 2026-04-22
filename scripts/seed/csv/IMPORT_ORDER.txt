@@ -1,0 +1,11 @@
+Import order in Supabase Table Editor:
+1) authors.csv
+2) activities.csv
+3) comments.csv
+
+Reason:
+- activities.author_id references authors.id
+- comments.activity_id references activities.id
+- comments.author_id references authors.id
+
+All IDs are pre-linked across files.

@@ -1,0 +1,19 @@
+id,activity_id,author_id,text,created_at
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2001,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1001,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a002,Would love the instrumentation checklist once it is cleaned up.,2026-04-22T09:49:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2002,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1002,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a004,This should make the next theme refresh much less painful.,2026-04-22T09:12:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2003,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1002,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a005,Please share Android consumption examples in the guild channel.,2026-04-22T09:16:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2004,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1004,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a008,The expiration requirement alone will save a lot of cleanup.,2026-04-22T07:52:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2005,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1006,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a004,Nice. We kept losing actions in meeting notes before this.,2026-04-22T06:09:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2006,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1007,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a006,Did you have to gate this by market or can everyone opt in?,2026-04-22T05:24:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2007,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1008,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a001,Great guardrail. This should reduce noisy dashboards.,2026-04-22T04:40:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2008,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1009,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a010,Can we add owner filters next so teams can self-serve faster?,2026-04-22T03:58:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2009,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1010,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a002,Thank you for including keyboard navigation in the fix.,2026-04-22T03:11:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2010,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1011,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a003,Can we expose this in the team dashboard as well?,2026-04-22T02:29:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2011,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1012,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a007,Perfect timing before this week release train.,2026-04-22T01:53:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2012,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1013,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a005,Please attach the postmortem template to this process.,2026-04-22T01:13:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2013,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1014,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a010,This will make compliance reviews much easier to prepare.,2026-04-22T00:29:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2014,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1015,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a004,Can we preview localized notes in app before submit?,2026-04-21T23:47:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2015,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1003,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a009,Nice result. Did this impact SLA metrics yet?,2026-04-22T08:31:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2016,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1005,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a001,Would be great to publish a template per role.,2026-04-22T06:56:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2017,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1009,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a008,Could this be extended to design docs and RFC pages?,2026-04-22T04:03:00.000Z
+8c7e2c0f-0b41-4f86-9850-8e5e36aa2018,5b2ca50d-59f7-4e5c-bd35-7ec2d11f1002,3f4ef70c-5f57-4e0d-a41b-1d3d6bd1a006,We should add token deprecation warnings next.,2026-04-22T09:18:00.000Z

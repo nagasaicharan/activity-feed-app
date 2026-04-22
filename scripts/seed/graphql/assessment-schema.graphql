@@ -1,0 +1,57 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  feed(first: Int!, after: String): FeedConnection!
+  activity(id: ID!): Activity
+}
+
+type Mutation {
+  toggleBookmark(activityId: ID!): ToggleBookmarkPayload!
+}
+
+type FeedConnection {
+  edges: [FeedEdge!]!
+  pageInfo: PageInfo!
+}
+
+type FeedEdge {
+  cursor: String!
+  node: Activity!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+
+type Activity {
+  id: ID!
+  title: String!
+  body: String!
+  author: Author!
+  comments: [Comment!]!
+  bookmarkCount: Int!
+  isBookmarked: Boolean!
+  createdAt: String!
+}
+
+type Author {
+  id: ID!
+  name: String!
+  avatarUrl: String!
+}
+
+type Comment {
+  id: ID!
+  author: Author!
+  text: String!
+  createdAt: String!
+}
+
+type ToggleBookmarkPayload {
+  activity: Activity
+  error: String
+}
