@@ -132,10 +132,6 @@ pnpm test
 
 ## Documentation
 
-- [Assessment.md](Assessment.md)
 - [docs/About.md](docs/About.md)
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- [docs/Features.md](docs/Features.md)
+- [docs/ADR.md](docs/ADR.md)
 - [docs/UI.md](docs/UI.md)
-- [docs/DEVELOPER_QUICK_REFERENCE.md](docs/DEVELOPER_QUICK_REFERENCE.md)
-- [docs/PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md)
